@@ -1,0 +1,1917 @@
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-06-12 04:14:20.603375', '2024-06-12 04:14:20.603383') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20240612041403)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar, "email" varchar, "password_digest" varchar, "isAdmin" boolean, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240612041403') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateChannels (20240612043623)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "channels" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "desc" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240612043623') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateMessages (20240612043710)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "messages" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "user_id" integer NOT NULL, "channel_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_273a25a7a6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_5baf0f07af"
+FOREIGN KEY ("channel_id")
+  REFERENCES "channels" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_messages_on_user_id" ON "messages" ("user_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_messages_on_channel_id" ON "messages" ("channel_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240612043710') RETURNING "version"[0m
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2024-06-12 10:39:54 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/uttam/.rbenv/versions/3.3.2/lib/ruby/gems/3.3.0/gems/railties-7.1.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/uttam/.rbenv/versions/3.3.2/lib/ruby/gems/3.3.0/gems/railties-7.1.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 2.3ms | Allocations: 363)
+Completed 200 OK in 125ms (Views: 34.9ms | ActiveRecord: 0.0ms | Allocations: 7588)
+
+
+Started GET "/login" for 127.0.0.1 at 2024-06-12 10:40:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/login"):
+  
+Started GET "/favicon.ico" for 127.0.0.1 at 2024-06-12 10:40:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+  [1m[36mMessage Load (0.7ms)[0m  [1m[34mSELECT "messages".* FROM "messages" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mChannel Load (0.3ms)[0m  [1m[34mSELECT "channels".* FROM "channels" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mMessage Load (0.1ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  [1m[36mChannel Load (0.2ms)[0m  [1m[34mSELECT "channels".* FROM "channels"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (2.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "isAdmin", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "Alice"], ["email", "alice@example.com"], ["password_digest", "[FILTERED]"], ["isAdmin", nil], ["created_at", "2024-06-12 06:58:51.175422"], ["updated_at", "2024-06-12 06:58:51.175422"]]
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (1.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "isAdmin", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "Bob"], ["email", "bob@example.com"], ["password_digest", "[FILTERED]"], ["isAdmin", nil], ["created_at", "2024-06-12 06:58:51.493943"], ["updated_at", "2024-06-12 06:58:51.493943"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (2.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "isAdmin", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "Charlie"], ["email", "charlie@example.com"], ["password_digest", "[FILTERED]"], ["isAdmin", nil], ["created_at", "2024-06-12 06:58:51.791149"], ["updated_at", "2024-06-12 06:58:51.791149"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mChannel Create (4.0ms)[0m  [1m[32mINSERT INTO "channels" ("name", "desc", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "General"], ["desc", "This is General Chat"], ["created_at", "2024-06-12 06:58:51.836591"], ["updated_at", "2024-06-12 06:58:51.836591"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mChannel Create (2.5ms)[0m  [1m[32mINSERT INTO "channels" ("name", "desc", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Random"], ["desc", "This is More fun channel"], ["created_at", "2024-06-12 06:58:51.845622"], ["updated_at", "2024-06-12 06:58:51.845622"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mChannel Create (1.7ms)[0m  [1m[32mINSERT INTO "channels" ("name", "desc", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Tech Talk"], ["desc", "This is Tech Talk"], ["created_at", "2024-06-12 06:58:51.852738"], ["updated_at", "2024-06-12 06:58:51.852738"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mChannel Create (2.1ms)[0m  [1m[32mINSERT INTO "channels" ("name", "desc", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "News"], ["desc", "This is News"], ["created_at", "2024-06-12 06:58:51.857255"], ["updated_at", "2024-06-12 06:58:51.857255"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Create (2.1ms)[0m  [1m[32mINSERT INTO "messages" ("content", "user_id", "channel_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "Hello everyone!"], ["user_id", 1], ["channel_id", 1], ["created_at", "2024-06-12 06:58:51.898026"], ["updated_at", "2024-06-12 06:58:51.898026"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Create (1.5ms)[0m  [1m[32mINSERT INTO "messages" ("content", "user_id", "channel_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "Welcome to the General channel"], ["user_id", 2], ["channel_id", 1], ["created_at", "2024-06-12 06:58:51.906159"], ["updated_at", "2024-06-12 06:58:51.906159"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Create (1.0ms)[0m  [1m[32mINSERT INTO "messages" ("content", "user_id", "channel_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "Did you see the latest news?"], ["user_id", 3], ["channel_id", 4], ["created_at", "2024-06-12 06:58:51.911586"], ["updated_at", "2024-06-12 06:58:51.911586"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Create (1.1ms)[0m  [1m[32mINSERT INTO "messages" ("content", "user_id", "channel_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "This is a random message"], ["user_id", 1], ["channel_id", 2], ["created_at", "2024-06-12 06:58:51.914954"], ["updated_at", "2024-06-12 06:58:51.914954"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Create (1.1ms)[0m  [1m[32mINSERT INTO "messages" ("content", "user_id", "channel_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "Anyone here interested in Ruby on Rails?"], ["user_id", 2], ["channel_id", 3], ["created_at", "2024-06-12 06:58:51.918678"], ["updated_at", "2024-06-12 06:58:51.918678"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Create (1.3ms)[0m  [1m[32mINSERT INTO "messages" ("content", "user_id", "channel_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "React.js is awesome!"], ["user_id", 3], ["channel_id", 3], ["created_at", "2024-06-12 06:58:51.933967"], ["updated_at", "2024-06-12 06:58:51.933967"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT "messages".* FROM "messages" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/" for ::1 at 2024-06-12 12:47:35 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/uttam/.rbenv/versions/3.3.2/lib/ruby/gems/3.3.0/gems/railties-7.1.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/uttam/.rbenv/versions/3.3.2/lib/ruby/gems/3.3.0/gems/railties-7.1.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.0ms | Allocations: 363)
+Completed 200 OK in 21ms (Views: 8.2ms | ActiveRecord: 0.0ms | Allocations: 4199)
+
+
+Started GET "/messages" for ::1 at 2024-06-12 12:47:42 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/messages"):
+  
+Started GET "/favicon.ico" for ::1 at 2024-06-12 12:47:43 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/message/1" for ::1 at 2024-06-12 12:47:49 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/message/1"):
+  
+Started GET "/channels" for ::1 at 2024-06-12 12:51:04 +0530
+Processing by ChannelsController#index as */*
+  Parameters: {"channel"=>{}}
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 10.9ms | Allocations: 147)
+
+
+  
+NoMethodError (undefined method `authorize_request' for an instance of ChannelsController):
+  
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:403:in `block in make_lambda'
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:202:in `block (2 levels) in halting'
+actionpack (7.1.3.4) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:203:in `block in halting'
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:109:in `run_callbacks'
+actionpack (7.1.3.4) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.4) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.4) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.4) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.4) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.4) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.4) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.4) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+activerecord (7.1.3.4) lib/active_record/railties/controller_runtime.rb:32:in `process_action'
+actionpack (7.1.3.4) lib/abstract_controller/base.rb:160:in `process'
+actionpack (7.1.3.4) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.4) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.4) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.4) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.4) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.4) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.4) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.4) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.4) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.4) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.1.2) lib/rack/etag.rb:29:in `call'
+rack (3.1.2) lib/rack/conditional_get.rb:31:in `call'
+rack (3.1.2) lib/rack/head.rb:15:in `call'
+activerecord (7.1.3.4) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.4) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.4) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.4) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.4) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.1.2) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.1.2) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+rack-cors (2.0.2) lib/rack/cors.rb:102:in `call'
+railties (7.1.3.4) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started GET "/channels" for ::1 at 2024-06-12 13:00:01 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ChannelsController#index as */*
+  Parameters: {"channel"=>{}}
+Completed 422 Unprocessable Content in 33ms (Views: 0.9ms | ActiveRecord: 7.3ms | Allocations: 695)
+
+
+Started GET "/channels" for ::1 at 2024-06-12 13:00:30 +0530
+Processing by ChannelsController#index as */*
+  Parameters: {"channel"=>{}}
+Completed 422 Unprocessable Content in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 83)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:01:44 +0530
+Processing by UsersController#create as */*
+  Parameters: {"model"=>"gpt-3.5-turbo-1106", "prompt"=>"Once upon a time", "username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]", "user"=>{}}
+Completed 422 Unprocessable Content in 4ms (Views: 3.5ms | ActiveRecord: 1.2ms | Allocations: 144)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:02:18 +0530
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 83)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:02:48 +0530
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 211)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:03:06 +0530
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 100)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:03:37 +0530
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 100)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:03:46 +0530
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 100)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:04:27 +0530
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 100)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:04:43 +0530
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 100)
+
+
+Started POST "/users?username=Rahul%20Kumar&email=rk7788@gmail.com&password=[FILTERED]" for ::1 at 2024-06-12 13:07:45 +0530
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Rahul Kumar", "email"=>"rk7788@gmail.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 84)
+
+
+Started POST "/login" for ::1 at 2024-06-12 13:08:47 +0530
+Processing by AuthController#login as */*
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 131)
+
+
+Started POST "/login?email=alice@example.com&password=[FILTERED]" for ::1 at 2024-06-12 13:09:24 +0530
+Processing by AuthController#login as */*
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 75)
+
+
+Started POST "/login?email=alice@example.com&password=[FILTERED]" for ::1 at 2024-06-12 13:10:37 +0530
+Processing by AuthController#login as */*
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 3ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 295)
+
+
+Started POST "/login?email=alice@example.com&password=[FILTERED]" for ::1 at 2024-06-12 13:12:55 +0530
+Processing by AuthController#login as */*
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started POST "/login" for ::1 at 2024-06-12 13:14:02 +0530
+Processing by AuthController#login as */*
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms | Allocations: 71)
+
+
+Started POST "/login" for ::1 at 2024-06-12 13:14:08 +0530
+Processing by AuthController#login as */*
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started POST "/login?email=alice@example.com&password=[FILTERED]" for ::1 at 2024-06-12 13:15:01 +0530
+Processing by AuthController#login as */*
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]"}
+Completed 422 Unprocessable Content in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Destroy (2.2ms)[0m  [1m[31mDELETE FROM "messages" WHERE "messages"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Destroy (1.3ms)[0m  [1m[31mDELETE FROM "messages" WHERE "messages"."id" = ?[0m  [["id", 2]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Destroy (1.6ms)[0m  [1m[31mDELETE FROM "messages" WHERE "messages"."id" = ?[0m  [["id", 3]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Destroy (1.1ms)[0m  [1m[31mDELETE FROM "messages" WHERE "messages"."id" = ?[0m  [["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Destroy (0.8ms)[0m  [1m[31mDELETE FROM "messages" WHERE "messages"."id" = ?[0m  [["id", 5]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMessage Destroy (1.1ms)[0m  [1m[31mDELETE FROM "messages" WHERE "messages"."id" = ?[0m  [["id", 6]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mChannel Load (0.1ms)[0m  [1m[34mSELECT "channels".* FROM "channels"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mMessage Load (0.1ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  [1m[36mChannel Load (0.1ms)[0m  [1m[34mSELECT "channels".* FROM "channels"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mMessage Load (0.1ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  [1m[36mChannel Load (0.1ms)[0m  [1m[34mSELECT "channels".* FROM "channels"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  [1m[36mChannel Load (0.2ms)[0m  [1m[34mSELECT "channels".* FROM "channels"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+Started POST "/login" for ::1 at 2024-06-12 14:04:37 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+Completed 422 Unprocessable Content in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 473)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:06:40 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+Completed 422 Unprocessable Content in 3ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 295)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:10:55 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+Completed 422 Unprocessable Content in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:13:03 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+Completed 422 Unprocessable Content in 3ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 295)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:14:24 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+Completed 422 Unprocessable Content in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:16:32 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+Completed 422 Unprocessable Content in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:20:12 +0530
+Processing by AuthController#login as HTML
+Completed 422 Unprocessable Content in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:23:06 +0530
+Processing by AuthController#login as HTML
+Completed 422 Unprocessable Content in 4ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 301)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:24:56 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+Completed 422 Unprocessable Content in 3ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 472)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:25:54 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+Completed 422 Unprocessable Content in 3ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 472)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:28:15 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 175)
+
+
+  
+NoMethodError (undefined method `pry' for an instance of Binding):
+  
+app/controllers/application_controller.rb:12:in `authorize_request'
+Started POST "/login" for ::1 at 2024-06-12 14:29:06 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 500 Internal Server Error in 75ms (ActiveRecord: 31.7ms | Allocations: 13387)
+
+
+  
+NoMethodError (undefined method `pry' for an instance of Binding):
+  
+app/controllers/auth_controller.rb:5:in `login'
+Started POST "/login" for ::1 at 2024-06-12 14:31:26 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 500 Internal Server Error in 57ms (ActiveRecord: 5.7ms | Allocations: 13387)
+
+
+  
+NoMethodError (undefined method `pry' for an instance of Binding):
+  
+app/controllers/auth_controller.rb:5:in `login'
+Started POST "/login" for ::1 at 2024-06-12 14:32:33 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 500 Internal Server Error in 78ms (ActiveRecord: 0.5ms | Allocations: 11043)
+
+
+  
+NoMethodError (undefined method `pry' for an instance of Binding):
+  
+app/controllers/auth_controller.rb:5:in `login'
+Started POST "/login" for ::1 at 2024-06-12 14:32:42 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.2ms | Allocations: 474)
+
+
+  
+NoMethodError (undefined method `pry' for an instance of Binding):
+  
+app/controllers/auth_controller.rb:5:in `login'
+Started POST "/login" for ::1 at 2024-06-12 14:32:50 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.2ms | Allocations: 473)
+
+
+  
+NoMethodError (undefined method `pry' for an instance of Binding):
+  
+app/controllers/auth_controller.rb:5:in `login'
+Started POST "/login" for ::1 at 2024-06-12 14:33:10 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 500 Internal Server Error in 99ms (ActiveRecord: 6.5ms | Allocations: 22866)
+
+
+  
+NoMethodError (undefined method `pry' for an instance of Binding):
+  
+app/controllers/auth_controller.rb:5:in `login'
+Started POST "/login" for ::1 at 2024-06-12 14:35:09 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 500 Internal Server Error in 84ms (ActiveRecord: 6.8ms | Allocations: 22866)
+
+
+  
+NoMethodError (undefined method `pry' for an instance of Binding):
+  
+app/controllers/auth_controller.rb:5:in `login'
+Started POST "/login" for ::1 at 2024-06-12 14:36:29 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 200 OK in 444ms (Views: 0.3ms | ActiveRecord: 8.9ms | Allocations: 23168)
+
+
+Started GET "/auth/me" for ::1 at 2024-06-12 14:37:23 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/auth/me"):
+  
+Started GET "/auth/me" for ::1 at 2024-06-12 14:37:24 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/auth/me"):
+  
+Started POST "/login" for ::1 at 2024-06-12 14:37:28 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 200 OK in 396ms (Views: 0.4ms | ActiveRecord: 9.7ms | Allocations: 21052)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:38:42 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 201 Created in 385ms (Views: 0.5ms | ActiveRecord: 7.4ms | Allocations: 23197)
+
+
+Started GET "/auth/me" for ::1 at 2024-06-12 14:44:21 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (uninitialized constant SessionsController):
+  
+Started GET "/auth/me" for ::1 at 2024-06-12 14:44:21 +0530
+  
+ActionController::RoutingError (uninitialized constant SessionsController):
+  
+Started POST "/login" for ::1 at 2024-06-12 14:45:01 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 200 OK in 395ms (Views: 0.8ms | ActiveRecord: 7.6ms | Allocations: 23168)
+
+
+Started POST "/login" for ::1 at 2024-06-12 14:45:28 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 200 OK in 315ms (Views: 0.1ms | ActiveRecord: 0.7ms | Allocations: 494)
+
+
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BknXH" for ::1 at 2024-06-12 14:45:29 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BknXM" for ::1 at 2024-06-12 14:45:29 +0530
+Started GET "/channels" for ::1 at 2024-06-12 14:45:29 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Processing by ChannelsController#index as HTML
+Completed 422 Unprocessable Content in 30ms (Views: 2.8ms | ActiveRecord: 0.0ms | Allocations: 325)
+
+
+Started GET "/channels" for ::1 at 2024-06-12 14:45:29 +0530
+Processing by ChannelsController#index as HTML
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BknrD" for ::1 at 2024-06-12 14:45:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkntO" for ::1 at 2024-06-12 14:45:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkoNO" for ::1 at 2024-06-12 14:45:32 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkoOL" for ::1 at 2024-06-12 14:45:32 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkozc" for ::1 at 2024-06-12 14:45:35 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkpQQ" for ::1 at 2024-06-12 14:45:36 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkqDQ" for ::1 at 2024-06-12 14:45:40 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started POST "/login" for ::1 at 2024-06-12 14:45:41 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 200 OK in 306ms (Views: 0.2ms | ActiveRecord: 0.1ms | Allocations: 473)
+
+
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkqcn" for ::1 at 2024-06-12 14:45:41 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkqco" for ::1 at 2024-06-12 14:45:41 +0530
+Started GET "/channels" for ::1 at 2024-06-12 14:45:41 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkqfd" for ::1 at 2024-06-12 14:45:42 +0530
+Processing by ChannelsController#index as HTML
+Completed 422 Unprocessable Content in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/channels" for ::1 at 2024-06-12 14:45:42 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Processing by ChannelsController#index as HTML
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkqnu" for ::1 at 2024-06-12 14:45:42 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkqtT" for ::1 at 2024-06-12 14:45:42 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkr8A" for ::1 at 2024-06-12 14:45:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkrCl" for ::1 at 2024-06-12 14:45:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkrSV" for ::1 at 2024-06-12 14:45:45 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkrwg" for ::1 at 2024-06-12 14:45:47 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bks5J" for ::1 at 2024-06-12 14:45:47 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BksNO" for ::1 at 2024-06-12 14:45:49 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkshp" for ::1 at 2024-06-12 14:45:50 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkt9f" for ::1 at 2024-06-12 14:45:52 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BktKF" for ::1 at 2024-06-12 14:45:52 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bktd2" for ::1 at 2024-06-12 14:45:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bku6F" for ::1 at 2024-06-12 14:45:56 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkubj" for ::1 at 2024-06-12 14:45:58 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkuc4" for ::1 at 2024-06-12 14:45:58 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkv4q" for ::1 at 2024-06-12 14:46:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkvLI" for ::1 at 2024-06-12 14:46:01 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkvr7" for ::1 at 2024-06-12 14:46:03 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkvrN" for ::1 at 2024-06-12 14:46:03 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkwYk" for ::1 at 2024-06-12 14:46:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkwaR" for ::1 at 2024-06-12 14:46:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkx4d" for ::1 at 2024-06-12 14:46:08 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkx68" for ::1 at 2024-06-12 14:46:08 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkxnk" for ::1 at 2024-06-12 14:46:11 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkxpf" for ::1 at 2024-06-12 14:46:11 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkyJf" for ::1 at 2024-06-12 14:46:13 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkyLN" for ::1 at 2024-06-12 14:46:13 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkz0X" for ::1 at 2024-06-12 14:46:16 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bkz30" for ::1 at 2024-06-12 14:46:16 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkzYT" for ::1 at 2024-06-12 14:46:18 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BkzaQ" for ::1 at 2024-06-12 14:46:18 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bk-FJ" for ::1 at 2024-06-12 14:46:21 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bk-I1" for ::1 at 2024-06-12 14:46:21 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bk-nC" for ::1 at 2024-06-12 14:46:23 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bk-pP" for ::1 at 2024-06-12 14:46:23 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bk_UU" for ::1 at 2024-06-12 14:46:26 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bk_Ww" for ::1 at 2024-06-12 14:46:26 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl00f" for ::1 at 2024-06-12 14:46:28 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl02N" for ::1 at 2024-06-12 14:46:28 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl0jZ" for ::1 at 2024-06-12 14:46:31 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl0ln" for ::1 at 2024-06-12 14:46:31 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl1FW" for ::1 at 2024-06-12 14:46:33 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl1H1" for ::1 at 2024-06-12 14:46:33 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl1yb" for ::1 at 2024-06-12 14:46:36 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl1-p" for ::1 at 2024-06-12 14:46:36 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl2UW" for ::1 at 2024-06-12 14:46:38 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl2Vk" for ::1 at 2024-06-12 14:46:38 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl3LC" for ::1 at 2024-06-12 14:46:42 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl3LE" for ::1 at 2024-06-12 14:46:42 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl3qF" for ::1 at 2024-06-12 14:46:44 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl3qI" for ::1 at 2024-06-12 14:46:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl4oo" for ::1 at 2024-06-12 14:46:48 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl4ow" for ::1 at 2024-06-12 14:46:48 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl5I0" for ::1 at 2024-06-12 14:46:50 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl5I3" for ::1 at 2024-06-12 14:46:50 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl6Gk" for ::1 at 2024-06-12 14:46:54 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl6Gm" for ::1 at 2024-06-12 14:46:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl6l-" for ::1 at 2024-06-12 14:46:56 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl6m5" for ::1 at 2024-06-12 14:46:56 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl7kU" for ::1 at 2024-06-12 14:47:00 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl7kX" for ::1 at 2024-06-12 14:47:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl8DY" for ::1 at 2024-06-12 14:47:02 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl8Db" for ::1 at 2024-06-12 14:47:02 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl9CF" for ::1 at 2024-06-12 14:47:06 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl9CI" for ::1 at 2024-06-12 14:47:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl9hN" for ::1 at 2024-06-12 14:47:08 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl9hP" for ::1 at 2024-06-12 14:47:08 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlAf-" for ::1 at 2024-06-12 14:47:12 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlAf_" for ::1 at 2024-06-12 14:47:12 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlB90" for ::1 at 2024-06-12 14:47:14 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlB93" for ::1 at 2024-06-12 14:47:14 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlC7V" for ::1 at 2024-06-12 14:47:18 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlC7Y" for ::1 at 2024-06-12 14:47:18 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlCcn" for ::1 at 2024-06-12 14:47:20 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlCcp" for ::1 at 2024-06-12 14:47:20 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlDbO" for ::1 at 2024-06-12 14:47:24 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlDbQ" for ::1 at 2024-06-12 14:47:24 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlE4i" for ::1 at 2024-06-12 14:47:26 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlE52" for ::1 at 2024-06-12 14:47:26 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlF39" for ::1 at 2024-06-12 14:47:30 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlF3C" for ::1 at 2024-06-12 14:47:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlFYJ" for ::1 at 2024-06-12 14:47:32 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlFYL" for ::1 at 2024-06-12 14:47:32 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlGWo" for ::1 at 2024-06-12 14:47:36 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlGWy" for ::1 at 2024-06-12 14:47:36 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlH0D" for ::1 at 2024-06-12 14:47:38 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlH0H" for ::1 at 2024-06-12 14:47:38 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlH-X" for ::1 at 2024-06-12 14:47:42 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlH-a" for ::1 at 2024-06-12 14:47:42 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlITu" for ::1 at 2024-06-12 14:47:44 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlITv" for ::1 at 2024-06-12 14:47:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlJSH" for ::1 at 2024-06-12 14:47:48 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlJT7" for ::1 at 2024-06-12 14:47:48 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlJxf" for ::1 at 2024-06-12 14:47:50 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlJxh" for ::1 at 2024-06-12 14:47:50 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlKw0" for ::1 at 2024-06-12 14:47:54 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlKw2" for ::1 at 2024-06-12 14:47:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlLPQ" for ::1 at 2024-06-12 14:47:56 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlLPR" for ::1 at 2024-06-12 14:47:56 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlMOp" for ::1 at 2024-06-12 14:48:00 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlMOs" for ::1 at 2024-06-12 14:48:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlMtD" for ::1 at 2024-06-12 14:48:02 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlMtE" for ::1 at 2024-06-12 14:48:02 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlNrX" for ::1 at 2024-06-12 14:48:06 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlNrZ" for ::1 at 2024-06-12 14:48:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlOKz" for ::1 at 2024-06-12 14:48:08 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlOL1" for ::1 at 2024-06-12 14:48:08 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlPJX" for ::1 at 2024-06-12 14:48:12 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlPJd" for ::1 at 2024-06-12 14:48:12 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlPof" for ::1 at 2024-06-12 14:48:14 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlPoh" for ::1 at 2024-06-12 14:48:14 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlQnC" for ::1 at 2024-06-12 14:48:18 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlQnE" for ::1 at 2024-06-12 14:48:18 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlRGV" for ::1 at 2024-06-12 14:48:20 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlRGZ" for ::1 at 2024-06-12 14:48:20 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlSEl" for ::1 at 2024-06-12 14:48:24 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlSEy" for ::1 at 2024-06-12 14:48:24 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlSj_" for ::1 at 2024-06-12 14:48:26 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlSk1" for ::1 at 2024-06-12 14:48:26 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlTim" for ::1 at 2024-06-12 14:48:30 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlTis" for ::1 at 2024-06-12 14:48:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlUBz" for ::1 at 2024-06-12 14:48:32 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlUC0" for ::1 at 2024-06-12 14:48:32 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlVAK" for ::1 at 2024-06-12 14:48:36 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlVAS" for ::1 at 2024-06-12 14:48:36 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlVfZ" for ::1 at 2024-06-12 14:48:38 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlVfc" for ::1 at 2024-06-12 14:48:38 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlWe3" for ::1 at 2024-06-12 14:48:42 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlWeG" for ::1 at 2024-06-12 14:48:42 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlX7P" for ::1 at 2024-06-12 14:48:44 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlX7R" for ::1 at 2024-06-12 14:48:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlY5o" for ::1 at 2024-06-12 14:48:48 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlY5q" for ::1 at 2024-06-12 14:48:48 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlYb3" for ::1 at 2024-06-12 14:48:50 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlYb4" for ::1 at 2024-06-12 14:48:50 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlZZf" for ::1 at 2024-06-12 14:48:54 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlZZh" for ::1 at 2024-06-12 14:48:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bla2o" for ::1 at 2024-06-12 14:48:56 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bla2q" for ::1 at 2024-06-12 14:48:56 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blb1P" for ::1 at 2024-06-12 14:49:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blb20" for ::1 at 2024-06-12 14:49:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlbWc" for ::1 at 2024-06-12 14:49:02 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlbXo" for ::1 at 2024-06-12 14:49:02 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlcV1" for ::1 at 2024-06-12 14:49:06 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlcV3" for ::1 at 2024-06-12 14:49:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blc-H" for ::1 at 2024-06-12 14:49:08 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blc-J" for ::1 at 2024-06-12 14:49:08 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bldyn" for ::1 at 2024-06-12 14:49:12 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bldys" for ::1 at 2024-06-12 14:49:12 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BleSD" for ::1 at 2024-06-12 14:49:14 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BleSE" for ::1 at 2024-06-12 14:49:14 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlfQc" for ::1 at 2024-06-12 14:49:18 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlfQk" for ::1 at 2024-06-12 14:49:18 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blfvz" for ::1 at 2024-06-12 14:49:20 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blfv_" for ::1 at 2024-06-12 14:49:20 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlguJ" for ::1 at 2024-06-12 14:49:24 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlguL" for ::1 at 2024-06-12 14:49:24 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blh8r" for ::1 at 2024-06-12 14:49:25 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blh8z" for ::1 at 2024-06-12 14:49:25 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started POST "/login" for ::1 at 2024-06-12 14:49:26 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 200 OK in 309ms (Views: 0.2ms | ActiveRecord: 0.1ms | Allocations: 474)
+
+
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlhXm" for ::1 at 2024-06-12 14:49:26 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlhXo" for ::1 at 2024-06-12 14:49:26 +0530
+Started GET "/channels" for ::1 at 2024-06-12 14:49:26 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Processing by ChannelsController#index as HTML
+Completed 422 Unprocessable Content in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/channels" for ::1 at 2024-06-12 14:49:27 +0530
+Processing by ChannelsController#index as HTML
+Completed 422 Unprocessable Content in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blhrd" for ::1 at 2024-06-12 14:49:28 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blhua" for ::1 at 2024-06-12 14:49:28 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bli7i" for ::1 at 2024-06-12 14:49:29 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bli7x" for ::1 at 2024-06-12 14:49:29 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BliAa" for ::1 at 2024-06-12 14:49:29 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BliOm" for ::1 at 2024-06-12 14:49:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BliPE" for ::1 at 2024-06-12 14:49:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BliRx" for ::1 at 2024-06-12 14:49:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BljCg" for ::1 at 2024-06-12 14:49:33 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BljMv" for ::1 at 2024-06-12 14:49:34 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BljNg" for ::1 at 2024-06-12 14:49:34 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BljPt" for ::1 at 2024-06-12 14:49:34 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bljdz" for ::1 at 2024-06-12 14:49:35 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bljeh" for ::1 at 2024-06-12 14:49:35 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlkRo" for ::1 at 2024-06-12 14:49:38 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blkc8" for ::1 at 2024-06-12 14:49:39 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blkd6" for ::1 at 2024-06-12 14:49:39 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blkf2" for ::1 at 2024-06-12 14:49:39 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blksy" for ::1 at 2024-06-12 14:49:40 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlktS" for ::1 at 2024-06-12 14:49:40 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BllgX" for ::1 at 2024-06-12 14:49:43 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bllqw" for ::1 at 2024-06-12 14:49:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bllru" for ::1 at 2024-06-12 14:49:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bllu8" for ::1 at 2024-06-12 14:49:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blm6C" for ::1 at 2024-06-12 14:49:45 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blm6a" for ::1 at 2024-06-12 14:49:45 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlmvA" for ::1 at 2024-06-12 14:49:48 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bln3k" for ::1 at 2024-06-12 14:49:49 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bln4k" for ::1 at 2024-06-12 14:49:49 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bln7C" for ::1 at 2024-06-12 14:49:49 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlnLB" for ::1 at 2024-06-12 14:49:50 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlnLi" for ::1 at 2024-06-12 14:49:50 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BloC_" for ::1 at 2024-06-12 14:49:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BloSr" for ::1 at 2024-06-12 14:49:55 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BloSx" for ::1 at 2024-06-12 14:49:55 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BloS_" for ::1 at 2024-06-12 14:49:55 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BloiI" for ::1 at 2024-06-12 14:49:56 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BloiJ" for ::1 at 2024-06-12 14:49:56 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blpgo" for ::1 at 2024-06-12 14:50:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlpwP" for ::1 at 2024-06-12 14:50:01 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlpwW" for ::1 at 2024-06-12 14:50:01 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blpxy" for ::1 at 2024-06-12 14:50:01 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlqA1" for ::1 at 2024-06-12 14:50:02 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlqA3" for ::1 at 2024-06-12 14:50:02 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blr8W" for ::1 at 2024-06-12 14:50:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlrOJ" for ::1 at 2024-06-12 14:50:07 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlrOM" for ::1 at 2024-06-12 14:50:07 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlrOR" for ::1 at 2024-06-12 14:50:07 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blrdo" for ::1 at 2024-06-12 14:50:08 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blrdq" for ::1 at 2024-06-12 14:50:08 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlscS" for ::1 at 2024-06-12 14:50:12 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blss5" for ::1 at 2024-06-12 14:50:13 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blss8" for ::1 at 2024-06-12 14:50:13 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlssC" for ::1 at 2024-06-12 14:50:13 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blt5i" for ::1 at 2024-06-12 14:50:14 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blt5k" for ::1 at 2024-06-12 14:50:14 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blu47" for ::1 at 2024-06-12 14:50:18 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BluJg" for ::1 at 2024-06-12 14:50:19 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BluJi" for ::1 at 2024-06-12 14:50:19 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BluJn" for ::1 at 2024-06-12 14:50:19 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blual" for ::1 at 2024-06-12 14:50:20 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blua_" for ::1 at 2024-06-12 14:50:20 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlvXp" for ::1 at 2024-06-12 14:50:24 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlvnP" for ::1 at 2024-06-12 14:50:25 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlvnU" for ::1 at 2024-06-12 14:50:25 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blvna" for ::1 at 2024-06-12 14:50:25 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blw18" for ::1 at 2024-06-12 14:50:26 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blw1B" for ::1 at 2024-06-12 14:50:26 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blw_Y" for ::1 at 2024-06-12 14:50:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlxF9" for ::1 at 2024-06-12 14:50:31 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlxFB" for ::1 at 2024-06-12 14:50:31 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlxFG" for ::1 at 2024-06-12 14:50:31 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlxUp" for ::1 at 2024-06-12 14:50:32 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlxUq" for ::1 at 2024-06-12 14:50:32 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlyTJ" for ::1 at 2024-06-12 14:50:36 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blyi-" for ::1 at 2024-06-12 14:50:37 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Blyj4" for ::1 at 2024-06-12 14:50:37 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlyjF" for ::1 at 2024-06-12 14:50:37 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlyyX" for ::1 at 2024-06-12 14:50:38 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlyyY" for ::1 at 2024-06-12 14:50:38 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BlzxD" for ::1 at 2024-06-12 14:50:42 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl-An" for ::1 at 2024-06-12 14:50:43 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl-Aq" for ::1 at 2024-06-12 14:50:43 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl-BA" for ::1 at 2024-06-12 14:50:43 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl-QF" for ::1 at 2024-06-12 14:50:44 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl-QH" for ::1 at 2024-06-12 14:50:44 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl_Oz" for ::1 at 2024-06-12 14:50:48 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl_eO" for ::1 at 2024-06-12 14:50:49 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl_eR" for ::1 at 2024-06-12 14:50:49 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl_ed" for ::1 at 2024-06-12 14:50:49 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl_u2" for ::1 at 2024-06-12 14:50:50 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bl_u5" for ::1 at 2024-06-12 14:50:50 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm0sX" for ::1 at 2024-06-12 14:50:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm16M" for ::1 at 2024-06-12 14:50:55 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm16n" for ::1 at 2024-06-12 14:50:55 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm16u" for ::1 at 2024-06-12 14:50:55 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm1MI" for ::1 at 2024-06-12 14:50:56 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm1MO" for ::1 at 2024-06-12 14:50:56 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm2KI" for ::1 at 2024-06-12 14:51:00 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm2Zu" for ::1 at 2024-06-12 14:51:01 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm2Zw" for ::1 at 2024-06-12 14:51:01 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm2a4" for ::1 at 2024-06-12 14:51:01 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm2pj" for ::1 at 2024-06-12 14:51:02 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm2pl" for ::1 at 2024-06-12 14:51:02 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm3o7" for ::1 at 2024-06-12 14:51:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm41g" for ::1 at 2024-06-12 14:51:07 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm41t" for ::1 at 2024-06-12 14:51:07 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm41_" for ::1 at 2024-06-12 14:51:07 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm4HG" for ::1 at 2024-06-12 14:51:08 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm4HJ" for ::1 at 2024-06-12 14:51:08 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm5Fz" for ::1 at 2024-06-12 14:51:12 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm5VS" for ::1 at 2024-06-12 14:51:13 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm5VU" for ::1 at 2024-06-12 14:51:13 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm5Vb" for ::1 at 2024-06-12 14:51:13 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm5k_" for ::1 at 2024-06-12 14:51:14 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm5l2" for ::1 at 2024-06-12 14:51:14 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm6jj" for ::1 at 2024-06-12 14:51:18 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm6zU" for ::1 at 2024-06-12 14:51:19 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm6zd" for ::1 at 2024-06-12 14:51:19 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm6z-" for ::1 at 2024-06-12 14:51:19 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm7Cy" for ::1 at 2024-06-12 14:51:20 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm7C_" for ::1 at 2024-06-12 14:51:20 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm8BF" for ::1 at 2024-06-12 14:51:24 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm8R5" for ::1 at 2024-06-12 14:51:25 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm8R7" for ::1 at 2024-06-12 14:51:25 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm8RC" for ::1 at 2024-06-12 14:51:25 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm8gi" for ::1 at 2024-06-12 14:51:26 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm8h1" for ::1 at 2024-06-12 14:51:26 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm9f9" for ::1 at 2024-06-12 14:51:30 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm9us" for ::1 at 2024-06-12 14:51:31 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm9uz" for ::1 at 2024-06-12 14:51:31 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0Bm9vH" for ::1 at 2024-06-12 14:51:31 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmA8J" for ::1 at 2024-06-12 14:51:32 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmA8R" for ::1 at 2024-06-12 14:51:32 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmB1P" for ::1 at 2024-06-12 14:51:35 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmB9C" for ::1 at 2024-06-12 14:51:36 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmB9a" for ::1 at 2024-06-12 14:51:36 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmB9y" for ::1 at 2024-06-12 14:51:36 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started POST "/login" for ::1 at 2024-06-12 14:51:49 +0530
+Processing by AuthController#login as HTML
+  Parameters: {"email"=>"alice@example.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"alice@example.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "alice@example.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:3:in `login'
+Completed 200 OK in 318ms (Views: 0.2ms | ActiveRecord: 6.6ms | Allocations: 6705)
+
+
+Started GET "/channels" for ::1 at 2024-06-12 14:51:50 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmEXI" for ::1 at 2024-06-12 14:51:50 +0530
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmEXO" for ::1 at 2024-06-12 14:51:50 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Processing by ChannelsController#index as HTML
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Completed 422 Unprocessable Content in 13ms (Views: 1.3ms | ActiveRecord: 0.0ms | Allocations: 579)
+
+
+Started GET "/channels" for ::1 at 2024-06-12 14:51:50 +0530
+Processing by ChannelsController#index as HTML
+Completed 422 Unprocessable Content in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmEl4" for ::1 at 2024-06-12 14:51:51 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmEnG" for ::1 at 2024-06-12 14:51:51 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmFAX" for ::1 at 2024-06-12 14:51:52 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmFWS" for ::1 at 2024-06-12 14:51:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmF_K" for ::1 at 2024-06-12 14:51:56 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmG5-" for ::1 at 2024-06-12 14:51:56 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmHEM" for ::1 at 2024-06-12 14:52:01 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmHKi" for ::1 at 2024-06-12 14:52:01 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmIT5" for ::1 at 2024-06-12 14:52:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmIZW" for ::1 at 2024-06-12 14:52:06 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmJhk" for ::1 at 2024-06-12 14:52:11 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
+Started GET "/socket.io/?EIO=4&transport=polling&t=P0BmJo4" for ::1 at 2024-06-12 14:52:11 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/socket.io"):
+  
